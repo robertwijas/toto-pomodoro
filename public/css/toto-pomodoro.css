@@ -1,0 +1,73 @@
+body {
+  font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+a {
+  color: #555555;
+}
+
+article.post header {
+    margin-bottom: 50px;
+}
+
+ul li {
+    list-style-type: circle;
+}
+
+ol li {
+    list-style-type: decimal;
+}
+
+pre {
+    overflow: auto;
+    font-size: 0.7em;
+}
+
+footer {
+  float: right;
+  margin-top: 5em;
+  margin-bottom: 1em;
+}
+
+section#archives {
+  margin-top: 150px;
+}
+
+h1 span.pomodoros {
+    color: red;
+    font-weight: bolder;
+}
+
+h1 span.pomodoros.badge {
+  color: white;
+  font-weight: bolder;
+}
+
+span.badge {
+  display: inline-block;
+  margin-left: 18px;
+}
+
+.badge {
+    -webkit-border-radius: 999px;
+    -moz-border-radius: 999px;
+    border-radius: 999px;
+    behavior: url(PIE.htc);
+
+    min-width: 36px;
+    padding: 8px;
+    
+    background: red;
+    border: 2px solid red;
+    color: red;
+    text-align: center;
+    
+    font: 32px Arial, sans-serif
+}
+
+div.chart {
+  width: 720px; 
+  height: 400px;
+  margin: 0 auto;
+  margin-top: 50px;
+}

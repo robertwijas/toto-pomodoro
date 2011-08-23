@@ -1,17 +1,25 @@
 require 'toto'
 
 @config = Toto::Config::Defaults
+@config[:ext]='md'
 
 task :default => :new
 
 desc "Create a new article."
 task :new do
   title = ask('Title: ')
-  slug = title.empty?? nil : title.strip.slugize
+  slug = title.empty? ? nil : title.strip.slugize
 
-  article = {'title' => title, 'date' => Time.now.strftime("%d/%m/%Y")}.to_yaml
+  article = {
+    'title' => title,
+    'slug' => slug,
+    'date' => Time.now.strftime("%d/%m/%Y"),
+    'pomodoros' => nil
+  }.to_yaml
+  
   article << "\n"
-  article << "Once upon a time...\n\n"
+  article << "Nothing is particularly hard if you divide it into small jobs. Henry Ford.\n"
+  article << "~\n\n"
 
   path = "#{Toto::Paths[:articles]}/#{Time.now.strftime("%Y-%m-%d")}#{'-' + slug if slug}.#{@config[:ext]}"
 
@@ -20,6 +28,7 @@ task :new do
       file.write article
     end
     toto "an article was created for you at #{path}."
+    exec "open #{path}"
   else
     toto "I can't create the article, #{path} already exists."
   end

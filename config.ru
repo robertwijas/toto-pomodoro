@@ -1,19 +1,34 @@
 
+require 'rubygems'
 require 'toto'
+require 'coderay'
+require 'rack/codehighlighter'
+
+require './lib/pomodoro.rb'
+
+Toto::Pomodoro.label_synonyms = [
+  ['Awesome Project', 'p'],
+  ['Email', 'e'],
+  ['Writing', 'w']
+]
 
 # Rack config
 use Rack::Static, :urls => ['/css', '/js', '/images', '/favicon.ico'], :root => 'public'
 use Rack::CommonLogger
+use Rack::Codehighlighter, :coderay, :markdown => true, :element => "pre>code", :pattern => /\A:::(\w+)\s*(\n|&#x000A;)/i, :logging => true
 
 if ENV['RACK_ENV'] == 'development'
   use Rack::ShowExceptions
+else
+  use Rack::Auth::Basic, "Restricted Area" do |username, password|
+    [username, password] == ['admin', 'admin']
+  end
 end
 
 #
 # Create and configure a toto instance
 #
 toto = Toto::Server.new do
-  #
   # Add your settings here
   # set [:setting], [value]
   # 
@@ -27,7 +42,9 @@ toto = Toto::Server.new do
   # set :ext,       'txt'                                     # file extension for articles
   # set :cache,      28800                                    # cache duration, in seconds
 
+  set :url, ENV['TOTO_URL']
   set :date, lambda {|now| now.strftime("%B #{now.day.ordinal} %Y") }
+  set :ext, 'md'
 end
 
 run toto

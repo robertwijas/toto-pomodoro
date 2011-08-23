@@ -1,0 +1,209 @@
+<!-- 2. Add the JavaScript to initialize the chart on document ready -->
+<script type="text/javascript">
+
+$(document).ready(function() {
+  
+  new Highcharts.Chart({
+    chart: {
+      renderTo: 'daily-pomodoro-stats',
+      defaultSeriesType: 'column'
+    },
+    title: {
+      text: 'Daily'
+    },
+    xAxis: {
+      title: {
+        text: null
+      },
+      type: 'datetime',
+      tickInterval: 24 * 3600 * 1000,
+      dateTimeLabelFormats: { // don't display the dummy year
+         month: '%e. %b',
+         year: '%b'
+      }
+    },
+    yAxis: {
+      min: 0,
+      allowDecimals: false,
+      title: {
+        text: 'Pomodoros',
+        align: 'middle'
+      },
+      stackLabels: {
+         enabled: true,
+         style: {
+            fontWeight: 'bold',
+            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+         }
+      },
+      plotLines: [
+        {
+          dashStyle: 'Dash',
+          color: 'darkblue',
+          value: <%= Toto::Pomodoro.daily_average @articles %>,
+          width: 2,
+          zIndex: 1
+        }
+      ]
+    },
+    tooltip: {
+      formatter: function() {
+        return ''+ this.point.title +': '+ this.y;
+      }
+    },
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+        color: 'Tomato',
+        point: {
+          events: {
+            click: function() {
+              location.href = this.options.url
+            }
+          }
+        },
+        showInLegend: false,
+        dataLabels: {
+           enabled: true,
+           color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+           formatter: function() {
+             if (this.y) {
+               return this.y
+             } else {
+               return ''
+             }
+           }
+        }
+      }
+    },
+    credits: {
+      enabled: false
+    },
+    series: [{
+      name: "pomodoros",
+      data: <%= (Toto::Pomodoro.article_count_stats_data @articles).to_json %>
+      }]
+    });
+  
+  <% categories, data = Toto::Pomodoro.labels_stats_data @articles %>
+  
+  new Highcharts.Chart({
+    chart: {
+      renderTo: 'tags-pomodoro-stats',
+      defaultSeriesType: 'bar'
+    },
+    title: {
+      text: 'Labels'
+    },
+    xAxis: {
+      categories: <%= categories.to_json %>
+,
+      title: {
+        text: null
+      },
+    },
+    yAxis: {
+      min: 0,
+      allowDecimals: false,
+      title: {
+        text: null,
+        align: 'high'
+      }
+    },
+    tooltip: {
+      formatter: function() {
+        return ''+ this.point.category +': '+ this.y;
+      }
+    },
+    plotOptions: {
+      bar: {
+        color: 'lightsteelblue',
+        showInLegend: false
+      }
+    },
+    credits: {
+      enabled: false
+    },
+    series: [{
+      name: "pomodoros",
+      data: <%= data.to_json %>
+
+      }]
+    });
+
+
+  <% categories, data = Toto::Pomodoro.monthly_stats_data @articles %>
+
+  new Highcharts.Chart({
+    chart: {
+       renderTo: 'monthly-stats',
+       defaultSeriesType: 'column'
+    },
+    title: {
+       text: 'Monthly'
+    },
+    xAxis: {
+       categories: <%= categories.to_json %>
+    },
+    yAxis: {
+       min: 0,
+       allowDecimals: false,
+       title: {
+          text: 'Pomodoros'
+       },
+       stackLabels: {
+          enabled: true,
+          style: {
+             fontWeight: 'bold',
+             color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+          }
+       }
+    },
+    legend: {
+       verticalAlign: 'bottom',
+       backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+       borderColor: '#CCC',
+       borderWidth: 1,
+       shadow: false
+    },
+    tooltip: {
+       formatter: function() {
+          return '<b>'+ this.x +'</b><br />'+
+              this.series.name +': '+ this.y +'<br />'+
+              'Total: '+ this.point.stackTotal;
+       }
+    },
+    plotOptions: {
+       column: {
+          stacking: 'normal',
+          dataLabels: {
+             enabled: true,
+             color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+             formatter: function() {
+               if (this.y) {
+                 return this.y
+               } else {
+                 return ''
+               }
+             }
+          },
+       }
+    },
+    credits: {
+      enabled: false
+    },
+    series: <%= data.to_json %>
+  });
+
+});
+
+</script>
+
+<div id="daily-pomodoro-stats" class="chart">
+</div>
+
+<div id="monthly-stats" class="chart">
+</div>
+
+<div id="tags-pomodoro-stats" class="chart">
+</div>

@@ -1,11 +1,20 @@
-<h1><%= @path %></h1>
+<% if archives.length > 0 %>
+
+<section id="pomodoros">
+    <h1>
+      Archives
+      <span class="pomodoros badge">
+        <%= Toto::Pomodoro.pomodoro_count archives %>
+      </span>
+    </h1>
+</section>
+
 <ul>
-  <% if archives.length > 0 %>
     <% for entry in archives %>
       <li>
         <a href="<%= entry.path %>"><%= entry.title %></a>
       </li>
     <% end %>
-  <% end %>
 </ul>
 
+<% end %>
