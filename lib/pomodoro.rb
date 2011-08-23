@@ -20,13 +20,24 @@ module Toto::Pomodoro
   end
 
   def self.pomodoro_count articles
-    articles.map {|a| a.pomodoro_count}.inject{|sum,x| sum + x}
+    articles.map {|a| a.pomodoros.count}.inject{|sum,x| sum + x}
   end
 
   def self.daily_average articles
-    pomodoro_articles = articles.select {|a| a.pomodoro_count}
-    count = pomodoro_articles.count.to_f unless pomodoro_articles.nil?
-    count > 0 ? (pomodoro_count(pomodoro_articles) / count) : 0
+    days = []
+    pomodoro_count = 0
+    
+    articles.each do
+      |a|
+      pomodoro_count += a.pomodoros.count
+      if a.pomodoros.count
+        days << a[:date]
+      end
+    end
+    
+    days.uniq!
+    
+    days.empty? ? 0 : pomodoro_count / days.count
   end
 
   def self.monthly_stats_data articles
@@ -76,7 +87,7 @@ module Toto::Pomodoro
   def self.article_count_stats_data articles
     data = articles.reverse.collect do
       |a|
-      {:y => a.pomodoro_count, :url => a.url, :title => a.title, :x => (Time.parse(a[:date].to_s).to_i * 1000)}
+      {:y => a.pomodoros.count, :url => a.url, :title => a.title, :x => (Time.parse(a[:date].to_s).to_i * 1000)}
     end
 
     return data
@@ -117,8 +128,4 @@ class Toto::Article
     self[:pomodoros] ? self[:pomodoros].to_s.split : []
   end
 
-  def pomodoro_count
-    self.pomodoros.count
-  end
-  
 end

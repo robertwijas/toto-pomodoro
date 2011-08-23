@@ -2,8 +2,8 @@
   <header>
     <h1>
         <%= title %>
-        <% if article.pomodoro_count != 0 %>
-        <span class="pomodoros badge"><%= article.pomodoro_count %></span>
+        <% if article.pomodoros.count != 0 %>
+        <span class="pomodoros badge"><%= article.pomodoros.count %></span>
         <% end %>
     </h1>
     <span class="date"><%= date %></span>
