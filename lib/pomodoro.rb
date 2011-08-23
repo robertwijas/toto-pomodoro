@@ -37,7 +37,7 @@ module Toto::Pomodoro
     
     days.uniq!
     
-    days.empty? ? 0 : pomodoro_count / days.count
+    days.empty? ? 0 : pomodoro_count / days.count.to_f
   end
 
   def self.monthly_stats_data articles
