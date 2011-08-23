@@ -3,6 +3,7 @@ require 'rubygems'
 require 'toto'
 require 'coderay'
 require 'rack/codehighlighter'
+require 'json'
 
 require './lib/pomodoro.rb'
 
