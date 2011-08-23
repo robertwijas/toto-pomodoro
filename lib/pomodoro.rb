@@ -48,7 +48,8 @@ module Toto::Pomodoro
       months[date] = month_data
     end
 
-    labels.uniq!.sort!
+    labels.uniq!
+    labels.sort!
 
     months_array = months.keys.sort
     data = []
