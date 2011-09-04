@@ -71,3 +71,11 @@ div.chart {
   margin: 0 auto;
   margin-top: 50px;
 }
+
+div.chart.tall {
+  height: 650px;
+}
+
+div.chart.short {
+  height: 250px;
+}

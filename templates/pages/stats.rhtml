@@ -15,7 +15,7 @@ $(document).ready(function() {
       type: 'datetime',
       tickInterval: 24 * 3600 * 1000,
       dateTimeLabelFormats: { // don't display the dummy year
-         month: '%e. %b',
+         day: '%m.%d',
          year: '%b'
       }
     },
@@ -196,10 +196,10 @@ $(document).ready(function() {
 
 </script>
 
-<div id="daily-pomodoro-stats" class="chart">
+<div id="daily-pomodoro-stats" class="chart short">
 </div>
 
-<div id="monthly-stats" class="chart">
+<div id="monthly-stats" class="chart tall">
 </div>
 
 <div id="tags-pomodoro-stats" class="chart">
