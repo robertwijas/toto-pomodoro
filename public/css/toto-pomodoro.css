@@ -65,8 +65,11 @@ span.badge {
     font: 32px Arial, sans-serif
 }
 
+body.stats {
+  width: 960px; 
+}
+
 div.chart {
-  width: 720px; 
   height: 400px;
   margin: 0 auto;
   margin-top: 50px;

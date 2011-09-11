@@ -15,8 +15,12 @@ $(document).ready(function() {
       type: 'datetime',
       tickInterval: 24 * 3600 * 1000,
       dateTimeLabelFormats: { // don't display the dummy year
-         day: '%m.%d',
-         year: '%b'
+        day: '%m.%d',
+        year: '%b'
+      },
+      labels: {
+        rotation: -45,
+        y: 25
       }
     },
     yAxis: {
