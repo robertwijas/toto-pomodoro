@@ -23,7 +23,14 @@ module Toto::Pomodoro
     articles.map {|a| a.pomodoros.count}.inject{|sum,x| sum + x}
   end
 
-  def self.daily_average articles
+  # returns [count, average, data]
+  def self.last_30_days articles
+    first_day = Date.today - 30
+    articles = articles.select {|a| a[:date] > first_day}
+    (count_and_daily_average articles) << (article_count_stats_data articles)
+  end
+
+  def self.count_and_daily_average articles
     days = []
     pomodoro_count = 0
     
@@ -37,7 +44,11 @@ module Toto::Pomodoro
     
     days.uniq!
     
-    days.empty? ? 0 : pomodoro_count / days.count.to_f
+    [pomodoro_count, (days.empty? ? 0 : pomodoro_count / days.count.to_f)]
+  end
+
+  def self.daily_average articles
+    (count_and_daily_average articles).last
   end
 
   def self.monthly_stats_data articles

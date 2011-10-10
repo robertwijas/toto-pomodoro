@@ -3,13 +3,18 @@
 
 $(document).ready(function() {
   
+  <% count, average, data = Toto::Pomodoro.last_30_days @articles %>
+  
   new Highcharts.Chart({
     chart: {
-      renderTo: 'daily-pomodoro-stats',
+      renderTo: 'last-30-days',
       defaultSeriesType: 'column'
     },
     title: {
-      text: 'Daily'
+      text: 'Last 30 days'
+    },
+    subtitle: {
+      text: '' + <%= count %> + ' pomodoros'
     },
     xAxis: {
       type: 'datetime',
@@ -41,7 +46,7 @@ $(document).ready(function() {
         {
           dashStyle: 'Dash',
           color: 'darkblue',
-          value: <%= Toto::Pomodoro.daily_average @articles %>,
+          value: <%= average %>,
           width: 2,
           zIndex: 1
         }
@@ -82,7 +87,7 @@ $(document).ready(function() {
     },
     series: [{
       name: "pomodoros",
-      data: <%= (Toto::Pomodoro.article_count_stats_data @articles).to_json %>
+      data: <%= data.to_json %>
       }]
     });
   
@@ -200,7 +205,7 @@ $(document).ready(function() {
 
 </script>
 
-<div id="daily-pomodoro-stats" class="chart short">
+<div id="last-30-days" class="chart short">
 </div>
 
 <div id="monthly-stats" class="chart tall">
