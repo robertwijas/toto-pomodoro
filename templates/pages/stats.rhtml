@@ -124,8 +124,15 @@ $(document).ready(function() {
     plotOptions: {
       bar: {
         color: 'lightsteelblue',
-        showInLegend: false
-      }
+        showInLegend: false,
+        point: {
+          events: {
+            click: function() {
+              location.href = '/archives?pomodoro=' + this.category
+            }
+          }
+        }      
+      },
     },
     credits: {
       enabled: false

@@ -131,6 +131,18 @@ module Toto::Pomodoro
     return tags, pomodoros
   end
   
+  def self.filter_articles(articles, env)
+    request = Rack::Request.new env
+    query = request.params['pomodoro'] if request
+    
+    if query
+      standard_label = standard_label query
+      articles.select {|a| (a.pomodoros.map {|p| standard_label p}).find_index(standard_label)}
+    else
+      articles
+    end
+  end
+  
 end
 
 class Toto::Article

@@ -1,16 +1,18 @@
 <% if archives.length > 0 %>
 
+<% articles = respond_to?(:env) ? Toto::Pomodoro.filter_articles(archives, env) : archives %>
+
 <section id="pomodoros">
     <h1>
       Archives
       <span class="pomodoros badge">
-        <%= Toto::Pomodoro.pomodoro_count archives %>
+        <%= Toto::Pomodoro.pomodoro_count articles %>
       </span>
     </h1>
 </section>
 
 <ul>
-    <% for entry in archives %>
+    <% for entry in articles %>
       <li>
         <a href="<%= entry.path %>"><%= entry.title %></a>
       </li>
