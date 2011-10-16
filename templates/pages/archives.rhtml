@@ -15,6 +15,7 @@
     <% for entry in articles %>
       <li>
         <a href="<%= entry.path %>"><%= entry.title %></a>
+        <%= Toto::Pomodoro.pomodoro_labels_html entry %>
       </li>
     <% end %>
 </ul>

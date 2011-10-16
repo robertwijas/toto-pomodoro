@@ -143,12 +143,28 @@ module Toto::Pomodoro
     end
   end
   
+  def self.pomodoro_labels_html article
+    html = ''
+    labels = article.pomodoros_unique
+
+    if not labels.empty?
+      labels.each {|l| html << "<li><a href=\"/archives?pomodoro=#{l}\">#{l}</a></li>"}
+      html = "<ul class=\"pomodoro-labels\">#{html}</ul>"
+    end
+    
+    return html
+  end
+  
 end
 
 class Toto::Article
   
   def pomodoros
     self[:pomodoros] ? self[:pomodoros].to_s.split : []
+  end
+  
+  def pomodoros_unique
+    self.pomodoros.map {|p| Toto::Pomodoro.standard_label p}.uniq
   end
 
 end

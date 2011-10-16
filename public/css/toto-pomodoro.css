@@ -1,3 +1,5 @@
+/* @override http://log.dev/css/toto-pomodoro.css */
+
 body {
   font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
@@ -7,7 +9,7 @@ a {
 }
 
 article.post header {
-    margin-bottom: 50px;
+    margin-bottom: 15px;
 }
 
 ul li {
@@ -33,9 +35,22 @@ section#archives {
   margin-top: 150px;
 }
 
+nav {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+nav a {
+  font-weight: bold;
+  text-decoration: none;
+  color: darkgray;
+  margin-right: 10px;
+  font-size: 24px;
+}
+
 h1 span.pomodoros {
-    color: red;
-    font-weight: bolder;
+  color: red;
+  font-weight: bolder;
 }
 
 h1 span.pomodoros.badge {
@@ -45,7 +60,7 @@ h1 span.pomodoros.badge {
 
 span.badge {
   display: inline-block;
-  margin-left: 18px;
+  margin-left: 8px;
 }
 
 .badge {
@@ -54,15 +69,44 @@ span.badge {
     border-radius: 999px;
     behavior: url(PIE.htc);
 
-    min-width: 36px;
-    padding: 8px;
+    min-width: 28px;
+    padding: 6px;
     
     background: red;
     border: 2px solid red;
     color: red;
     text-align: center;
     
-    font: 32px Arial, sans-serif
+    font: 24px Arial, sans-serif
+}
+
+ul.pomodoro-labels {
+  margin: 0;
+  padding: 0;
+}
+
+header ul.pomodoro-labels {
+  text-align: right;
+  margin-right: 30px;
+}
+
+.pomodoro-labels li {
+  background-color: #eaeaea;
+  display: inline;
+  
+  -webkit-border-radius: 999px;
+  -moz-border-radius: 999px;
+  border-radius: 999px;
+  behavior: url(PIE.htc);
+
+  text-align: center;
+  font-size: 14px;
+  padding: 4px 8px;
+}
+
+.pomodoro-labels li a {
+  color: black;
+  text-decoration: none;
 }
 
 body.stats {
@@ -82,3 +126,4 @@ div.chart.tall {
 div.chart.short {
   height: 250px;
 }
+
