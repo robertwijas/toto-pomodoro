@@ -160,7 +160,20 @@ end
 class Toto::Article
   
   def pomodoros
-    self[:pomodoros] ? self[:pomodoros].to_s.split : []
+    labels = self[:pomodoros] ? self[:pomodoros].to_s.split : []
+    pomodoros = []
+    
+    labels.each do
+      |l|
+      if l.match('^.*\*\d$')
+        p, c = l.split('*')
+        c.to_i.times {|i| pomodoros << p}
+      else
+        pomodoros << l
+      end
+    end
+    
+    return pomodoros
   end
   
   def pomodoros_unique
