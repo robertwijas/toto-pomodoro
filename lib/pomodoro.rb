@@ -165,7 +165,7 @@ class Toto::Article
     
     labels.each do
       |l|
-      if l.match('^.*\*\d$')
+      if l.match('^.*\*\d+$')
         p, c = l.split('*')
         c.to_i.times {|i| pomodoros << p}
       else
